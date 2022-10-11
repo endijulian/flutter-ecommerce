@@ -1,7 +1,8 @@
 // @dart=2.9
 
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce/pages/sign_in_part.dart';
+import 'package:flutter_ecommerce/pages/sign_in_page.dart';
+import 'package:flutter_ecommerce/pages/sign_up_page.dart';
 import 'package:flutter_ecommerce/pages/splash_page.dart';
 import 'package:flutter_ecommerce/theme.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => SplashPage(),
         '/sign-in': (context) => SignPage(),
+        '/sign-up': (context) => SignUpPage(),
       },
     );
   }
