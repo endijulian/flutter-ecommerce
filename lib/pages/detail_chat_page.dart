@@ -105,6 +105,9 @@ class DetailChatPage extends StatelessWidget {
     Widget chatInput() {
       return Container(
         margin: const EdgeInsets.all(20),
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -157,6 +160,30 @@ class DetailChatPage extends StatelessWidget {
             isSender: true,
             text: 'Hi, This item is still available?',
             hasProduct: true,
+          ),
+          const ChatBuble(
+            isSender: false,
+            text: 'Good night, This item is only available in size 42 and 43',
+          ),
+          const ChatBuble(
+            isSender: false,
+            text: 'Good night, This item is only available in size 42 and 43',
+          ),
+          const ChatBuble(
+            isSender: false,
+            text: 'Good night, This item is only available in size 42 and 43',
+          ),
+          const ChatBuble(
+            isSender: false,
+            text: 'Good night, This item is only available in size 42 and 43',
+          ),
+          const ChatBuble(
+            isSender: true,
+            text: 'Good night, This item is only available in size 42 and 43',
+          ),
+          const ChatBuble(
+            isSender: true,
+            text: 'Good night, This item is only available in size 42 and 43',
           ),
           const ChatBuble(
             isSender: false,
