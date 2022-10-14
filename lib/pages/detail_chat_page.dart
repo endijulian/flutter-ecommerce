@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/theme.dart';
+import 'package:flutter_ecommerce/widgets/chat_buble.dart';
 
 class DetailChatPage extends StatelessWidget {
   const DetailChatPage({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class DetailChatPage extends StatelessWidget {
                 'assets/img_shop_logo_online.png',
                 width: 50,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 12,
               ),
               Column(
@@ -41,7 +42,7 @@ class DetailChatPage extends StatelessWidget {
             ],
           ),
         ),
-        preferredSize: Size.fromHeight(70),
+        preferredSize: const Size.fromHeight(70),
       );
     }
 
@@ -49,10 +50,10 @@ class DetailChatPage extends StatelessWidget {
       return Container(
         width: 225,
         height: 74,
-        margin: EdgeInsets.only(
+        margin: const EdgeInsets.only(
           bottom: 20,
         ),
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: backgroundColor5,
           borderRadius: BorderRadius.circular(12),
@@ -68,7 +69,7 @@ class DetailChatPage extends StatelessWidget {
                 width: 54,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Expanded(
@@ -80,7 +81,7 @@ class DetailChatPage extends StatelessWidget {
                     style: primaryTextStyle,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 2,
                   ),
                   Text(
@@ -103,7 +104,7 @@ class DetailChatPage extends StatelessWidget {
 
     Widget chatInput() {
       return Container(
-        margin: EdgeInsets.all(20),
+        margin: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -133,7 +134,7 @@ class DetailChatPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 Image.asset(
@@ -147,10 +148,29 @@ class DetailChatPage extends StatelessWidget {
       );
     }
 
+    Widget content() {
+      return ListView(
+        padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+        // ignore: prefer_const_literals_to_create_immutables
+        children: [
+          const ChatBuble(
+            isSender: true,
+            text: 'Hi, This item is still available?',
+            hasProduct: true,
+          ),
+          const ChatBuble(
+            isSender: false,
+            text: 'Good night, This item is only available in size 42 and 43',
+          ),
+        ],
+      );
+    }
+
     return Scaffold(
       backgroundColor: backgroundColor3,
       appBar: header(),
       bottomNavigationBar: chatInput(),
+      body: content(),
     );
   }
 }
