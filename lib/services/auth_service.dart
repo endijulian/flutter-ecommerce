@@ -1,7 +1,6 @@
 import 'dart:convert';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/models/users_model.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:http/http.dart' as http;
 
 class AuthService {
@@ -30,10 +29,13 @@ class AuthService {
       body: body,
     );
 
+    // ignore: avoid_print
+    print(response.body);
+
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body)['data'];
       UserModel user = UserModel.fromJson(data['user']);
-      user.token = 'Bearer ' + data['access_token'];
+      user.token = 'Bearer' + data['access_token'];
 
       return user;
     } else {
