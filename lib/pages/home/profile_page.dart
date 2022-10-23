@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/models/users_model.dart';
+import 'package:flutter_ecommerce/providers/auth_provider.dart';
 import 'package:flutter_ecommerce/theme.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    UserModel user = authProvider.user;
+
     Widget header() {
       return AppBar(
         backgroundColor: backgroundColor1,
@@ -28,14 +34,14 @@ class ProfilePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Hallo, Alex',
+                        'Hallo, ${user.name}',
                         style: primaryTextStyle.copyWith(
                           fontSize: 24,
                           fontWeight: semiBold,
                         ),
                       ),
                       Text(
-                        '@alexkeinn',
+                        '@${user.username}',
                         style: secondaryTextStyle.copyWith(
                           fontSize: 16,
                           fontWeight: reguler,
