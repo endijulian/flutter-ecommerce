@@ -3,12 +3,12 @@ import 'package:flutter_ecommerce/models/product_model.dart';
 class CartModel {
   int? id;
   ProductModel? product;
-  int? quantity;
+  late int quantity;
 
   CartModel({
     this.id,
     this.product,
-    this.quantity,
+    required this.quantity,
   });
 
   CartModel.fromJson(Map<String, dynamic> json) {
@@ -26,6 +26,6 @@ class CartModel {
   }
 
   num getTotalPrice() {
-    return product?.price ?? 0 * quantity!;
+    return product?.price ?? 0 * quantity;
   }
 }
