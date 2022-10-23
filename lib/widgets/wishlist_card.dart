@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/models/product_model.dart';
+import 'package:flutter_ecommerce/providers/wishlist_provider.dart';
 import 'package:flutter_ecommerce/theme.dart';
+import 'package:provider/provider.dart';
 
 class WishlistCard extends StatelessWidget {
+  final ProductModel product;
+  WishlistCard({required this.product});
+
   @override
   Widget build(BuildContext context) {
+    WishlistProvider wishlistProvider = Provider.of<WishlistProvider>(context);
+
     return Container(
       margin: EdgeInsets.only(top: 20),
       padding: EdgeInsets.only(
@@ -20,8 +28,8 @@ class WishlistCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Image.asset(
-              'assets/image_shoes.png',
+            child: Image.network(
+              product.galleries?[0].url ?? '',
               width: 60,
               height: 60,
             ),
@@ -34,7 +42,7 @@ class WishlistCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Terrex Urban Low',
+                  product.name ?? '',
                   style: primaryTextStyle.copyWith(
                     fontWeight: semiBold,
                   ),
@@ -43,16 +51,21 @@ class WishlistCard extends StatelessWidget {
                   height: 2,
                 ),
                 Text(
-                  '\$143,98',
+                  '\$${product.price}',
                   style: priceTextStyle,
                 )
               ],
             ),
           ),
-          Image.asset(
-            'assets/btn_wishlist_blue.png',
-            width: 34,
-            height: 34,
+          GestureDetector(
+            onTap: () {
+              wishlistProvider.setProduct(product);
+            },
+            child: Image.asset(
+              'assets/btn_wishlist_blue.png',
+              width: 34,
+              height: 34,
+            ),
           )
         ],
       ),
