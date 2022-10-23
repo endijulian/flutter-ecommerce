@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/models/users_model.dart';
 import 'package:flutter_ecommerce/providers/auth_provider.dart';
+import 'package:flutter_ecommerce/providers/product_provider.dart';
 import 'package:flutter_ecommerce/theme.dart';
 import 'package:flutter_ecommerce/widgets/productTile_arrivals_card.dart';
 import 'package:flutter_ecommerce/widgets/product_card.dart';
@@ -14,8 +15,8 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
-
     UserModel user = authProvider.user;
+    ProductProvider productProvider = Provider.of<ProductProvider>(context);
 
     Widget header() {
       return Container(
@@ -202,11 +203,13 @@ class HomePage extends StatelessWidget {
             children: [
               SizedBox(width: defaultMargin),
               Row(
-                children: [
-                  ProductCard(),
-                  ProductCard(),
-                  ProductCard(),
-                ],
+                children: productProvider.products
+                    .map(
+                      (product) => ProductCard(
+                        product: product,
+                      ),
+                    )
+                    .toList(),
               ),
             ],
           ),
@@ -236,11 +239,13 @@ class HomePage extends StatelessWidget {
         margin: EdgeInsets.only(top: 14),
         child: Column(
           // ignore: prefer_const_literals_to_create_immutables
-          children: [
-            ProductTileArrivals(),
-            ProductTileArrivals(),
-            ProductTileArrivals(),
-          ],
+          children: productProvider.products
+              .map(
+                (product) => ProductTileArrivals(
+                  productTile: product,
+                ),
+              )
+              .toList(),
         ),
       );
     }

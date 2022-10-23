@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/models/product_model.dart';
 import 'package:flutter_ecommerce/theme.dart';
 
 class ProductTileArrivals extends StatelessWidget {
-  const ProductTileArrivals({Key? key}) : super(key: key);
+  const ProductTileArrivals({Key? key, this.productTile}) : super(key: key);
+  final ProductModel? productTile;
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +22,8 @@ class ProductTileArrivals extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: Image.asset(
-                'assets/image_shoes.png',
+              child: Image.network(
+                productTile?.galleries?[0].url ?? '',
                 width: 120,
                 height: 120,
                 fit: BoxFit.cover,
@@ -35,7 +37,7 @@ class ProductTileArrivals extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Football',
+                    productTile?.category?.name ?? '',
                     style: subtitleTextStyle.copyWith(
                       fontSize: 12,
                       fontWeight: medium,
@@ -45,7 +47,7 @@ class ProductTileArrivals extends StatelessWidget {
                     height: 6,
                   ),
                   Text(
-                    'Predator 20.3 Firm Ground',
+                    productTile?.name ?? '',
                     style: primaryTextStyle.copyWith(
                       fontSize: 16,
                       fontWeight: semiBold,
@@ -55,7 +57,7 @@ class ProductTileArrivals extends StatelessWidget {
                     height: 6,
                   ),
                   Text(
-                    '\$68,47',
+                    '\$${productTile?.price ?? ''}',
                     style: priceTextStyle.copyWith(
                       fontSize: 14,
                       fontWeight: medium,
