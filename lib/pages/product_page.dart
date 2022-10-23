@@ -2,10 +2,13 @@
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/models/product_model.dart';
 import 'package:flutter_ecommerce/theme.dart';
 
 class ProductPage extends StatefulWidget {
-  ProductPage({Key? key}) : super(key: key);
+  const ProductPage({Key? key, required this.product}) : super(key: key);
+
+  final ProductModel product;
 
   @override
   State<ProductPage> createState() => _ProductPageState();
@@ -165,10 +168,10 @@ class _ProductPageState extends State<ProductPage> {
             ),
           ),
           CarouselSlider(
-            items: imagesSlider
-                .map(
-                  (image) => Image.asset(
-                    image,
+            items: widget.product.galleries
+                ?.map(
+                  (image) => Image.network(
+                    image.url ?? '',
                     width: MediaQuery.of(context).size.width,
                     height: 310,
                     fit: BoxFit.cover,
@@ -189,7 +192,7 @@ class _ProductPageState extends State<ProductPage> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: imagesSlider.map((e) {
+            children: widget.product.galleries!.map((e) {
               index++;
               print(index);
               return indicatorSlider(index);
@@ -227,14 +230,14 @@ class _ProductPageState extends State<ProductPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'TERREX URBAN LOWTERREX ',
+                          widget.product.name ?? '',
                           style: primaryTextStyle.copyWith(
                             fontSize: 18,
                             fontWeight: semiBold,
                           ),
                         ),
                         Text(
-                          'Hiking',
+                          widget.product.category?.name ?? '',
                           style: secondaryTextStyle.copyWith(fontSize: 12),
                         )
                       ],
@@ -303,7 +306,7 @@ class _ProductPageState extends State<ProductPage> {
                     style: primaryTextStyle.copyWith(fontSize: 14),
                   ),
                   Text(
-                    '\$143,98',
+                    '\$${widget.product.price}',
                     style: priceTextStyle.copyWith(
                       fontSize: 16,
                       fontWeight: semiBold,
@@ -335,7 +338,7 @@ class _ProductPageState extends State<ProductPage> {
                     height: 12,
                   ),
                   Text(
-                    'Unpaved trails and mixed surfaces are easy when you have the traction and support youneed. Casual enough for the daily commute.',
+                    widget.product.description ?? '',
                     style: secondaryTextStyle.copyWith(
                       fontSize: 14,
                       fontWeight: light,

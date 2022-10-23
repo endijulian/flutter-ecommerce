@@ -13,6 +13,7 @@ import 'package:flutter_ecommerce/pages/sign_up_page.dart';
 import 'package:flutter_ecommerce/pages/splash_page.dart';
 import 'package:flutter_ecommerce/providers/auth_provider.dart';
 import 'package:flutter_ecommerce/providers/product_provider.dart';
+import 'package:flutter_ecommerce/providers/wishlist_provider.dart';
 import 'package:flutter_ecommerce/theme.dart';
 import 'package:provider/provider.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -29,7 +30,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => ProductProvider(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (context) => WishlistProvider(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -40,7 +44,7 @@ class MyApp extends StatelessWidget {
           '/home': (context) => MainPage(),
           '/detail-chat': (context) => DetailChatPage(),
           '/edit-profile': (context) => EditProfilePage(),
-          '/product': (context) => ProductPage(),
+          // '/product': (context) => ProductPage(),
           '/cart': (context) => CartPage(),
           '/checkout': (context) => CheckoutPage(),
           '/checkout-success': (context) => CheckoutSuccessPage(),
