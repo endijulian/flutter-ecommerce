@@ -1,13 +1,20 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/models/cart_model.dart';
+import 'package:flutter_ecommerce/providers/cart_provider.dart';
 import 'package:flutter_ecommerce/theme.dart';
+import 'package:provider/provider.dart';
 
 class CheckoutCard extends StatelessWidget {
-  const CheckoutCard({Key? key}) : super(key: key);
+  const CheckoutCard({Key? key, required this.cart}) : super(key: key);
+
+  final CartModel cart;
 
   @override
   Widget build(BuildContext context) {
+    CartProvider cartProvider = Provider.of<CartProvider>(context);
+
     return Container(
       margin: EdgeInsets.only(top: 12),
       padding: EdgeInsets.symmetric(vertical: 20, horizontal: 12),
@@ -23,7 +30,7 @@ class CheckoutCard extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               image: DecorationImage(
-                image: AssetImage('assets/image_shoes.png'),
+                image: NetworkImage(cart.product?.galleries![0].url ?? ''),
               ),
             ),
           ),
@@ -35,7 +42,7 @@ class CheckoutCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Terrex Urban Low Terrex Urban Low Low Terrex Urban Low',
+                  cart.product?.name ?? '',
                   style: primaryTextStyle.copyWith(
                     fontWeight: semiBold,
                   ),
@@ -45,7 +52,7 @@ class CheckoutCard extends StatelessWidget {
                   height: 2,
                 ),
                 Text(
-                  '\$143,98',
+                  '\$${cart.product?.price}',
                   style: priceTextStyle,
                 )
               ],
@@ -55,7 +62,7 @@ class CheckoutCard extends StatelessWidget {
             width: 12,
           ),
           Text(
-            '2 Items',
+            '${cart.quantity} Items',
             style:
                 secondaryTextStyle.copyWith(fontSize: 12, fontWeight: reguler),
           )
