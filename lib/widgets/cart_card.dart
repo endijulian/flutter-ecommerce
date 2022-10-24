@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/models/cart_model.dart';
+import 'package:flutter_ecommerce/providers/cart_provider.dart';
 import 'package:flutter_ecommerce/theme.dart';
+import 'package:provider/provider.dart';
 
 class CartCard extends StatelessWidget {
-  const CartCard({Key? key}) : super(key: key);
+  const CartCard({Key? key, required this.cartVal}) : super(key: key);
+
+  final CartModel cartVal;
 
   @override
   Widget build(BuildContext context) {
+    CartProvider cartProvider = Provider.of<CartProvider>(context);
+
     return Container(
       margin: EdgeInsets.only(top: defaultMargin),
       padding: EdgeInsets.symmetric(
@@ -26,7 +33,8 @@ class CartCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   image: DecorationImage(
-                    image: AssetImage('assets/image_shoes.png'),
+                    image:
+                        NetworkImage(cartVal.product?.galleries![0].url ?? ''),
                   ),
                 ),
               ),
@@ -38,7 +46,7 @@ class CartCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Terrex Urban Low',
+                      cartVal.product?.name ?? '',
                       style: primaryTextStyle.copyWith(
                         fontSize: 14,
                         fontWeight: semiBold,
@@ -48,7 +56,7 @@ class CartCard extends StatelessWidget {
                       height: 2,
                     ),
                     Text(
-                      '\$143,98',
+                      '\$${cartVal.product?.price}',
                       style: priceTextStyle,
                     )
                   ],
@@ -56,23 +64,33 @@ class CartCard extends StatelessWidget {
               ),
               Column(
                 children: [
-                  Image.asset(
-                    'assets/btn_add.png',
-                    width: 16,
+                  GestureDetector(
+                    onTap: () {
+                      cartProvider.addQuantity(cartVal.id);
+                    },
+                    child: Image.asset(
+                      'assets/btn_add.png',
+                      width: 16,
+                    ),
                   ),
                   SizedBox(
                     height: 2,
                   ),
                   Text(
-                    '2',
+                    cartVal.quantity.toString(),
                     style: primaryTextStyle.copyWith(fontWeight: medium),
                   ),
                   SizedBox(
                     height: 2,
                   ),
-                  Image.asset(
-                    'assets/btn_min.png',
-                    width: 16,
+                  GestureDetector(
+                    onTap: () {
+                      cartProvider.reduceQuantity(cartVal.id);
+                    },
+                    child: Image.asset(
+                      'assets/btn_min.png',
+                      width: 16,
+                    ),
                   ),
                 ],
               )
@@ -81,23 +99,28 @@ class CartCard extends StatelessWidget {
           SizedBox(
             height: 12,
           ),
-          Row(
-            children: [
-              Image.asset(
-                'assets/icon_remove.png',
-                width: 10,
-              ),
-              SizedBox(
-                width: 4,
-              ),
-              Text(
-                'Remove',
-                style: alertTextStyle.copyWith(
-                  fontSize: 12,
-                  fontWeight: light,
+          GestureDetector(
+            onTap: () {
+              cartProvider.removeCart(cartVal.id);
+            },
+            child: Row(
+              children: [
+                Image.asset(
+                  'assets/icon_remove.png',
+                  width: 10,
                 ),
-              )
-            ],
+                SizedBox(
+                  width: 4,
+                ),
+                Text(
+                  'Remove',
+                  style: alertTextStyle.copyWith(
+                    fontSize: 12,
+                    fontWeight: light,
+                  ),
+                )
+              ],
+            ),
           )
         ],
       ),
